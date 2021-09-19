@@ -6,4 +6,4 @@
 
 
 Good-to-know:
-- the script will ask where the camera parameters, openMVG and OpenMVS binaries are; or you can define the path [here](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/ODMsheff_32/MvgMvsPipeline_ODMsheff_32.py#L112-L118)
+- The command is: `python MvgMvsPipeline_ODMsheff_32.py C:\{path to imagery}\images C:\{path to result}\result`. `cmd prompt` will ask where the camera parameters, openMVG and OpenMVS binaries are; or you can define the path [here](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/ODMsheff_32/MvgMvsPipeline_ODMsheff_32.py#L112-L118)
