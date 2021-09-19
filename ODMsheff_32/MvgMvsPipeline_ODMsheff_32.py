@@ -3,7 +3,7 @@
 # -*- encoding: utf-8 -*-
 #
 # Created by FlachyJoe - https://github.com/FlachyJoe at https://github.com/cdcseacave/openMVS/blob/master/MvgMvsPipeline.py
-# edit: arkriger 
+# edit: arkriger - https://github.com/AdrianKriger/aerialPhotogrammetry101/tree/main/ODMsheff_32
 
 ## -- cmd: python MvgMvsPipeline_ODMsheff_32.py C:\{path to imagery}\images C:\{path to result}\result
 
