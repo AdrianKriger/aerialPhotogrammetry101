@@ -374,7 +374,7 @@ if 15 in CONF.steps:                                # Split scene
     path = CONF.mvs_dir
     glob_path = glob.glob(path +'\sceneGeo_*.mvs')
     for i in glob_path:
-        STEPS[16].opt.appendleft(["-i", i])         # Merge scene
+        STEPS[15].opt.appendleft(["-i", i])         # Merge scene
     
 if 3 in CONF.steps:                                 # ComputeMatches
     if 5 in CONF.steps:                             # GlobalReconstruction
