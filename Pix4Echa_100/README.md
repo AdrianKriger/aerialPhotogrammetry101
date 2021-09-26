@@ -9,7 +9,7 @@ Go Further:  *execute [sense37_Code.py](https://github.com/AdrianKriger/aerialPh
      - outlier detection;
      - ground filtering; and 
      - write `.las`
-- create a terrain (dtm) and surface model (dsm) with the [AHN3 interpolation techniques](https://github.com/khalhoz/geo1101-ahn3-GF-and-Interpolation); that is:
+- create a terrain (dtm) and surface model (dsm) with the prefered [AHN3 interpolation techniques](https://github.com/khalhoz/geo1101-ahn3-GF-and-Interpolation); that is:
     - dtm - with Laplace interpolation via Delaunay triangulation ([startin](https://github.com/hugoledoux/startinpy/)); and
     - dsm - with home-baked quadrant-based inverse-distance weighting 
 
