@@ -3,7 +3,7 @@
 
 #Created on Sun Sep 19 06:41:57 2021
 
-#author: arkriger
+#author: arkriger - https://github.com/AdrianKriger/aerialPhotogrammetry101/edit/main/Pix4Echa_100/pix4D100_Code.py
 
 # - AHN3 dtm and dsm procedure: (https://github.com/khalhoz/geo1101-ahn3-GF-and-Interpolation) 
 #     - dtm: delaunay triangulation with laplace interpolation (startin);
