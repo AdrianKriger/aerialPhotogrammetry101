@@ -15,5 +15,5 @@ Go Further:  *execute [sense127_Code.py](https://github.com/AdrianKriger/aerialP
 
 Good-to-know:
 - [MvgMvsPipeline_senseFly_127.py](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/SenseMor_127/MvgMvsPipeline_senseFly_127.py):
-    - will ask where the camera parameters, openMVG and openMVS binaries are; or you can define the path [here](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/SenseMor_127/MvgMvsPipeline_senseFly_127.py#L116-L121)
+    - will ask where the camera parameters, openMVG and openMVS binaries are; or you can define the path [here](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/SenseMor_127/MvgMvsPipeline_senseFly_127.py#L115-L121)
     - `-c ` ([cache](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/SenseMor_127/MvgMvsPipeline_senseFly_127.py#L216)) is limited to 100, dense reconstruction is harvested at 1/4 [resolution](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/SenseMor_127/MvgMvsPipeline_senseFly_127.py#L251).
