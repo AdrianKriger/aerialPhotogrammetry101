@@ -3,8 +3,11 @@
 # -*- encoding: utf-8 -*-
 #
 # Created by FlachyJoe - https://github.com/FlachyJoe at https://github.com/cdcseacave/openMVS/blob/master/MvgMvsPipeline.py
-# edit: arkriger - https://github.com/AdrianKriger/aerialPhotogrammetry101/tree/main/SenseMor_127
+# edit: arkriger 
 
+## -- python MvgMvsPipeline_senseFly_127.py C:\Adrian\openMVG_MVS\senseFly_127\images C:\Adrian\openMVG_MVS\senseFly_127\result_utm
+##  https://www.openstreetmap.org/#map=16/46.5924/6.5674 -- EPSG:32632
+## -- python MvgMvsPipeline_senseFly_127.py --preset SEQ_geoMesh C:\Adrian\openMVG_MVS\senseFly_127\images C:\Adrian\openMVG_MVS\senseFly_127\result_utm
 
 """
 This script is for an easy use of OpenMVG and OpenMVS
