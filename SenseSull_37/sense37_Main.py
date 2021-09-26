@@ -3,7 +3,7 @@
 
 #reated on Sun Sep 19 13:32:00 2021
 
-#author: arkriger
+#author: arkriger - https://github.com/AdrianKriger/aerialPhotogrammetry101/edit/main/SenseSull_37/sense37_Main.py
 
 # - takes the .ply and executes sense37_Code.py; that is:
 # - enter PDAL pipeline (project from ecef geocentric to utm, outlier removal, 
