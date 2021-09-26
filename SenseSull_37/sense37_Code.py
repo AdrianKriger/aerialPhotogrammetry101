@@ -3,7 +3,7 @@
 
 #Created on Sun Sep 19 06:41:57 2021
 
-#author: arkriger
+#author: arkriger - https://github.com/AdrianKriger/aerialPhotogrammetry101/edit/main/SenseSull_37/sense37_Code.py
 
 import math
 import json
