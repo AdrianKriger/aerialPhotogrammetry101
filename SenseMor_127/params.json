@@ -1,0 +1,18 @@
+{
+
+    "input-ply": "./result_utm/mvs/sceneGeo_dense.ply",
+    "out-las": "./result_utm/las/sceneGeo_dense.las",
+    "dtm": "False",
+    
+    "size": 0.5,
+    
+    "crs": "EPSG:32632",
+    "thinning-factor": 5,
+    
+    "initial_distance": 0.2,
+    "max_distance": 2,
+    "gf-angle": 0.2,
+       
+    "dtm": "./result_utm/",
+      
+}
