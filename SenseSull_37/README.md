@@ -1,7 +1,7 @@
 **[senseFly](https://www.sensefly.com/)** [Sullens](https://www.sensefly.com/education/datasets/?dataset=1420) ~ *37 oblique images*
 
 `python MvgMvsPipeline_senseFly_37.py C:\{path to imagery}\images C:\{path to result}\result`  
-will produce and sparse (SfM with [openMVG](https://github.com/openMVG/openMVG)) then dense (MVS with [openMVS](https://github.com/cdcseacave/openMVS)) reconstruction
+will produce a sparse (SfM with [openMVG](https://github.com/openMVG/openMVG)) then dense (MVS with [openMVS](https://github.com/cdcseacave/openMVS)) reconstruction
 
 Go Further:  *execute [sense37_Code.py](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/SenseSull_37/sense37_Code.py) through [sense37_Main.py](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/SenseSull_37/sense37_Main.py) with parameters from [params.json](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/SenseSull_37/params.json)*
 - read the `scene_dense.ply` into a [PDAL](https://pdal.io/index.html#) pipeline and:
