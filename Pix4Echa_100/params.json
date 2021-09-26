@@ -1,0 +1,24 @@
+{
+
+    "input-ply": "./result_utm/mvs/sceneGeo_dense.ply",
+    "out-las": "./result_utm/las/sceneGeo_dense.las",
+    "dtm": "True",
+    "dsm": "False",
+    "size": 0.5,
+    
+    "crs": "EPSG:32632",
+    
+    "thinning-factor": 5,
+    "initial_distance": 0.2,
+    "max_distance": 2,
+    "gf-angle": 0.5,
+       
+    "dtm_dsm": "./result_utm/",
+    "bounds": "([318700, 318900],[5167850, 5168050])",
+    
+    "pdal-idw-rad": 3, "pdal-idw-pow": 1, "pdal-idw-wnd": 3,
+    
+    "start_rk": 10, "pwr": 2, "minp": 2, "incr_rk": 3, "method": "k-nearest", "tolerance": 0.5, 
+    "maxiter": 100
+      
+}
