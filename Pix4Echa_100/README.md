@@ -1,6 +1,6 @@
 **[Pix4D](https://www.pix4d.com/)** [Echallens](https://support.pix4d.com/hc/en-us/articles/360000235126-Example-projects-real-photogrammetry-data#labelM2) ~ *100 images*
 
-`python MvgMvsPipeline_senseFly_37.py C:\{path to imagery}\images C:\{path to result}\result`  
+`python MvgMvsPipeline_Pix4D100.py C:\{path to imagery}\images C:\{path to result}\result`  
 will produce a sparse (SfM with [openMVG](https://github.com/openMVG/openMVG)) then dense (MVS with [openMVS](https://github.com/cdcseacave/openMVS)) reconstruction
 
 Go Further:  *execute [sense37_Code.py](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/Pix4Echa_100/pix4D100_Code.py) through [sense37_Main.py](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/Pix4Echa_100/pix4D100_Main.py) with parameters from [params.json](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/Pix4Echa_100/params.json)*
