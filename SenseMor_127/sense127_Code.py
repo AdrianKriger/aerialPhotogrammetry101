@@ -2,8 +2,7 @@
 # env/ANH3
 
 
-# author: arkriger
-# https://github.com/AdrianKriger/aerialPhotogrammetry101/tree/main/SenseMor_127
+# author: arkriger - https://github.com/AdrianKriger/aerialPhotogrammetry101/tree/main/SenseMor_127
 
 import math
 import json
