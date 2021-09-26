@@ -19,4 +19,4 @@ Good-to-know:
 - [MvgMvsPipeline_Pix4d100100.py](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/Pix4Echa_100/MvgMvsPipeline_Pix4D100.py):
     - will ask where the camera parameters, openMVG and openMVS binaries are; or you can define the path [here](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/Pix4Echa_100/MvgMvsPipeline_Pix4D100.py#L114-L120)
     - `-c ` ([cache](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/Pix4Echa_100/MvgMvsPipeline_Pix4D100.py#L216)) is limited to 100, dense reconstruction is harvested at 1/4 [resolution](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/Pix4Echa_100/MvgMvsPipeline_Pix4D100.py#L251).
-- note the [crop](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/Pix4Echa_100/pix4D100_Code.py#L112-L115)
+- note the [crop](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/Pix4Echa_100/pix4D100_Code.py#L116-L119)
