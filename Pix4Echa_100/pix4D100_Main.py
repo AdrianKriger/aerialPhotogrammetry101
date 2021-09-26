@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # env/AHN3
 
-#author: arkriger
+#author: arkriger - https://github.com/AdrianKriger/aerialPhotogrammetry101/edit/main/Pix4Echa_100/pix4D100_Main.py
 
 # - takes the .ply and executes pix4D100_Code.py; that is:
 # - enter PDAL pipeline (project from ecef geocentric to utm, outlier removal, 
