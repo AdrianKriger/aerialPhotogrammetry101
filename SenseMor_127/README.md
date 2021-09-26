@@ -4,7 +4,7 @@
 
 `python [MvgMvsPipeline_ODMsheff_32.py](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/ODMsheff_32/MvgMvsPipeline_ODMsheff_32.py) C:\{path to imagery}\images C:\{path to result}\result` will produce and sparse (SfM with [openMVG](https://github.com/openMVG/openMVG)) then dense (MVS with [openMVS](https://github.com/cdcseacave/openMVS)) reconstruction
 
-Go Further:  **execute [sense127_Code.py]() through [sense127_Main.py]() with parameters from [params.json]()**
+Go Further:  *execute [sense127_Code.py]() through [sense127_Main.py]() with parameters from [params.json]()*
 - read the `scene_dense.ply` into a [PDAL](https://pdal.io/index.html#) pipeline and:
      - project to local coordinate system;
      - outlier detection;
