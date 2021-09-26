@@ -2,7 +2,7 @@
 
 **[senseFly](https://www.sensefly.com/)** [Mormont quarry](https://www.sensefly.com/education/datasets/?dataset=1418) ~ *127 images*
 
-`python MvgMvsPipeline_senseFly_127.pyy C:\{path to imagery}\images C:\{path to result}\result`  
+`python MvgMvsPipeline_senseFly_127.py C:\{path to imagery}\images C:\{path to result}\result`  
 will produce and sparse (SfM with [openMVG](https://github.com/openMVG/openMVG)) then dense (MVS with [openMVS](https://github.com/cdcseacave/openMVS)) reconstruction
 
 Go Further:  *execute [sense127_Code.py](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/SenseMor_127/sense127_Code.py) through [sense127_Main.py](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/SenseMor_127/sense127_Main.py) with parameters from [params.json](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/SenseMor_127/params.json)*
