@@ -3,7 +3,11 @@
 # -*- encoding: utf-8 -*-
 #
 # Created by FlachyJoe - https://github.com/FlachyJoe at https://github.com/cdcseacave/openMVS/blob/master/MvgMvsPipeline.py
-# edit: arkriger - https://github.com/AdrianKriger/aerialPhotogrammetry101/tree/main/SenseMor_127
+# edit: arkriger 
+
+## -- python MvgMvsPipeline_Pix4D_100.py C:\Adrian\openMVG_MVS\Pix4Dmatic_100\images_100 C:\Adrian\openMVG_MVS\Pix4Dmatic_100\result_utm
+##  https://www.openstreetmap.org/#map=18/46.64032/6.63214 -- EPSG:32632
+
 """
 This script is for an easy use of OpenMVG and OpenMVS
 
@@ -29,14 +33,15 @@ Photogrammetry reconstruction with these steps:
     9. Aerial GPS                      openMVG_main_geodesy_registration_to_gps_position
     10. Control Points Registration    ui_openMVG_control_points_registration
     11. Export to openMVS              openMVG_main_openMVG2openMVS
-    12. Export to openNVM              openMVG_main_openMVG2openNVM
-    13. NVM to MVS                     InterfaceVisualSFM
-    14. Densify point-cloud            DensifyPointCloud
-    15. Estimate disparity-maps        DensifyPointCloud
-    16. Fuse disparity-maps            DensifyPointCloud
-    17. Reconstruct the mesh           ReconstructMesh
-    18. Refine the mesh                RefineMesh
-    19. Texture the mesh               TextureMesh
+    12. Densify point-cloud            DensifyPointCloud
+    13. Densify point-cloud            DensifyPointCloud
+    14. Split scene                    DensifyPointCloud
+    15. Merge scene                    DensifyPointCloud
+    16. Estimate disparity-maps        DensifyPointCloud
+    17. Fuse disparity-maps            DensifyPointCloud
+    18. Reconstruct the mesh           ReconstructMesh
+    19. Refine the mesh                RefineMesh
+    20. Texture the mesh               TextureMesh
 
 
 positional arguments:
@@ -52,8 +57,9 @@ optional arguments:
                             MVG_SEQ = [0, 1, 2, 3, 5, 6, 7]
                             MVG_GLOBAL = [0, 1, 2, 4, 5, 6, 7]
                             MVS_SGM = [14, 15]
-                            SEQ_geo= [0, 1, 2, 3, 4, 9, 11, 14]
-                            default : SEQUENTIAL
+                            SEQ_geo = [0, 1, 2, 3, 4, 6, 9, 11, 12]
+                            SEQ_geoMesh = [18, 19, 20]
+                            default : SEQ_geo
 
 Passthrough:
   Option to be passed to command lines (remove - in front of option names)
@@ -64,6 +70,7 @@ import os
 import subprocess
 import sys
 import argparse
+import glob
 
 DEBUG = False
 
@@ -128,9 +135,8 @@ PRESET = {'SEQUENTIAL': [0, 1, 2, 3, 9, 10, 11, 12, 13],
           'MVS_SGM': [14, 15],
           'AERIAL_SGM': [0, 1, 2, 3, 9, 14, 15],
           'AERIAL_SEQ': [0, 1, 2, 3, 9, 10],
-          'SEQ_geo': [14], #0, 1, 3, 4, 6, 9, 11, 14],#, 15, 16],
-          'DENSE_geo': [10, 13, 14, 15, 16],
-          'DENSE_gcp': [12, 13, 14, 15, 16]
+          'SEQ_geo': [0, 1, 2, 3, 4, 6, 9, 11, 12], # 13, 14, 15],
+          'SEQ_geoMesh': [18, 19, 20]
           }
 
 PRESET_DEFAULT = 'SEQ_geo'
@@ -194,24 +200,19 @@ class StepsStore:
         self.steps_data = [
             ["Intrinsics analysis",          # 0
              os.path.join(OPENMVG_BIN, "openMVG_main_SfMInit_ImageListing"),
-             ["-i", "%input_dir%", "-o", "%matches_dir%", "-d", "%camera_file_params%"]],
-            
+             ["-i", "%input_dir%", "-o", "%matches_dir%", "-P", "-m", "1", "-d", "%camera_file_params%"]],
             ["Compute features",             # 1
              os.path.join(OPENMVG_BIN, "openMVG_main_ComputeFeatures"),
-            ["-i", "%matches_dir%\sfm_data.json", "-o", "%matches_dir%", "-m", "SIFT", "-n", "4"]],
-            ["Matching Pair List",             # 2
+             ["-i", "%matches_dir%\sfm_data.json", "-o", "%matches_dir%", "-m", "SIFT", "-n", "4"]], # "-f", "1", -f 1 will redo while 0 will use the previous
+            ["Matching Pair List",           # 2
              os.path.join(OPENMVG_BIN, "openMVG_main_ListMatchingPairs"),
-             ["G", "-n", "4", "-i", "%matches_dir%\sfm_data.json", "-o", "%matches_dir%\pair_list.txt"]],
+             ["-G", "-n", "5", "-i", "%matches_dir%\sfm_data.json", "-o", "%matches_dir%\pair_list.txt"]],
             ["Compute matches",              # 3
              os.path.join(OPENMVG_BIN, "openMVG_main_ComputeMatches"),
-            #["-i", "%matches_dir%/sfm_data.json", "-o", "%matches_dir%", "-n", "HNSWL2", "-r", ".8"]],
-             #-- changed to 'Approximate Nearest Neighbor L2 matching for Scalar based regions descriptor'
-            ["-i", "%matches_dir%\sfm_data.json", "-o", "%matches_dir%", "-n", "ANNL2", "-r", ".8"]],
-            #["-i", "%matches_dir%\sfm_data.json", "-l", "%matches_dir%\pair_list.txt", "-o", "%matches_dir%", "-g", "e", "-n", "ANNL2", "-r", ".8"]],
-
-             #-- GlobalSfM pipeline "openMVG_main_GlobalSfM" expects Essential Matrix filtered putative matches 
-             #-- https://github.com/openMVG/openMVG/issues/576
-            #["-i", "%matches_dir%/sfm_data.json", "-l", "%matches_dir%\pair_list.txt", "-o", "%matches_dir%", "-g", "e"]],
+             #["-i", "%matches_dir%/sfm_data.json", "-o", "%matches_dir%", "-n", "HNSWL2", "-r", ".8"]],
+             #-- changed to 'Approximate Nearest Neighbor L2 matching for Scalar based regions descriptor' and added pair list
+             #["-i", "%matches_dir%\sfm_data.json", "-o", "%matches_dir%", "-n", "ANNL2", "-r", ".8"]],
+             ["-i", "%matches_dir%\sfm_data.json", "-l", "%matches_dir%\pair_list.txt", "-o", "%matches_dir%", "-n", "ANNL2", "-r", "0.8", "-c", "100"]],
             
             ["Incremental reconstruction",   # 4
              os.path.join(OPENMVG_BIN, "openMVG_main_IncrementalSfM"),
@@ -230,9 +231,9 @@ class StepsStore:
              os.path.join(OPENMVG_BIN, "openMVG_main_ComputeSfM_DataColor"),
              ["-i", "%reconstruction_dir%\robust.bin", "-o", "%reconstruction_dir%\robust_colorized.ply"]],
             
-            ["Aerial GPS Registration",  # 9
+            ["Aerial GPS Registration",      # 9
              os.path.join(OPENMVG_BIN, "openMVG_main_geodesy_registration_to_gps_position"),
-             ["-i", "%reconstruction_dir%\sfm_data.bin", "-o", "%reconstruction_dir%\sfm_dataGeo.bin", "-m", "0"]],
+             ["-i", "%reconstruction_dir%\sfm_data.bin", "-o", "%reconstruction_dir%\sfm_dataGeo.bin"]],
             ["Control Points Registration",  # 10
              os.path.join(OPENMVG_BIN, "ui_openMVG_control_points_registration"),
              ["-i", "%reconstruction_dir%\sfm_data.bin"]],
@@ -240,36 +241,40 @@ class StepsStore:
             ["Export to openMVS",            # 11
              os.path.join(OPENMVG_BIN, "openMVG_main_openMVG2openMVS"),
              #["-i", "%reconstruction_dir%\sfm_data.bin", "-o", "%mvs_dir%\scene.mvs", "-d", "%mvs_dir%\images"]],
-            #-- with GPS prior (photo centres) change file name	
-            ["-i", "%reconstruction_dir%\sfm_dataGeo.bin", "-o", "%mvs_dir%\sceneGeo.mvs", "-d", "%mvs_dir%\images"]],
-            ["Export to NVM",           # 12
-            os.path.join(OPENMVG_BIN, "openMVG_main_openMVG2NVM"),
-            ["-i", "%reconstruction_dir%\sfm_dataGeo.bin", "-o", "%mvs_dir%\sfm_dataGeo.nvm", "-d", "%mvs_dir%\images"]],
-            ["NVM to MVS",           # 13
-            os.path.join(OPENMVS_BIN, "InterfaceVisualSFM"),
-            ["sceneGcp.nvm"]],
-
-            ["Densify point cloud",          # 14
+             #-- with GPS prior (photo centres) change file name	
+             ["-i", "%reconstruction_dir%\sfm_dataGeo.bin", "-o", "%mvs_dir%\sceneGeo.mvs", "-d", "%mvs_dir%\images"]],
+            
+            ["Densify point cloud",          # 12
              os.path.join(OPENMVS_BIN, "DensifyPointCloud"),
              #["scene.mvs", "--dense-config-file", "Densify.ini", "--resolution-level", "1", "-w", "%mvs_dir%"]],
-            ["-i", "sceneGeo.mvs", "-o", "sceneGeo_dense.mvs", "--dense-config-file", "Densify.ini", "--resolution-level", "2", "--number-views", "5", "-w", "%mvs_dir%"]],
+             ["-i", "sceneGeo.mvs", "-o", "sceneGeo_dense.mvs", "--dense-config-file", "Densify.ini", "--resolution-level", "2", "--number-views", "5", "--max-threads", "4", "-w", "%mvs_dir%"]],
+
+            ["Densify point cloud",          # 13
+             os.path.join(OPENMVS_BIN, "DensifyPointCloud"),
+             ["-i", "sceneGeo.mvs", "--resolution-level", "1", "--fusion-mode", "1",  "--number-views", "5", "-w", "%mvs_dir%"]],
+            ["Split scene",                  # 14
+             os.path.join(OPENMVS_BIN, "DensifyPointCloud"),
+             ["-i", "sceneGeo.mvs", "--sub-scene-area", "660000", "--max-threads", "4", "-w", "%mvs_dir%"]],
+            ["Export scene",                  # 15
+             os.path.join(OPENMVS_BIN, "DensifyPointCloud"),
+             ["--dense-config-file", "Densify.ini", "--resolution-level", "1", "--number-views-fuse", "2", "--max-threads", "4", "-w", "%mvs_dir%"]],
             
-            ["Estimate disparity-maps",      # 15
+            ["Estimate disparity-maps",      # 16
              os.path.join(OPENMVS_BIN, "DensifyPointCloud"),
              ["-i", "sceneGeo.mvs", "-o", "sceneGeo_denseSGM.mvs", "--dense-config-file", "Densify.ini", "--resolution-level", "2", "--fusion-mode", "-1", "-w", "%sgm_dir%"]],
-            ["Fuse disparity-maps",          # 16
+            ["Fuse disparity-maps",          # 17
              os.path.join(OPENMVS_BIN, "DensifyPointCloud"),
              ["-i", "sceneGeo.mvs", "-o", "sceneGeo_denseSGM.mvs", "--dense-config-file", "Densify.ini", "--resolution-level", "2", "--fusion-mode", "-2", "-w", "%sgm_dir%"]],
             
-            ["Reconstruct the mesh",         # 17
+            ["Reconstruct the mesh",         # 18
              os.path.join(OPENMVS_BIN, "ReconstructMesh"),
              ["-i", "sceneGeo_dense.mvs", "-o", "sceneGeo_denseMesh.mvs", "-w", "%mvs_dir%"]],
-            ["Refine the mesh",              # 18
+            ["Refine the mesh",              # 19
              os.path.join(OPENMVS_BIN, "RefineMesh"),
              #["i", "scene_denseMesh.mvs", "--scales", "2", "-w", "%mvs_dir%"]],
              #-- taking very long. change --scales to --resolution-level
-            ["-i", "sceneGeo_denseMesh.mvs", "-o", "sceneGeo_denseMesh_refine.mvs", "--resolution-level", "2", "-w", "%mvs_dir%"]],
-            ["Texture the mesh",             # 19
+             ["-i", "sceneGeo_denseMesh.mvs", "-o", "sceneGeo_denseMesh_refine.mvs", "--resolution-level", "1", "-w", "%mvs_dir%"]],
+            ["Texture the mesh",             # 20
              os.path.join(OPENMVS_BIN, "TextureMesh"),
              ["sceneGeo_dense_mesh_refine.mvs",  "-w", "%mvs_dir%"]], #"--decimate", "0.5",
             ]
@@ -349,7 +354,7 @@ mkdir_ine(CONF.output_dir)
 mkdir_ine(CONF.reconstruction_dir)
 mkdir_ine(CONF.matches_dir)
 mkdir_ine(CONF.mvs_dir)
-mkdir_ine(CONF.sgm_dir)
+#mkdir_ine(CONF.sgm_dir)
 
 # Update directories in steps commandlines
 STEPS.apply_conf(CONF)
@@ -367,11 +372,17 @@ elif not CONF.steps:
 
 # WALK
 print("# Using input dir:  %s" % CONF.input_dir)
-print("#      output dir:  %s" % CONF.output_dir)
+print("#   Output dir:  %s" % CONF.output_dir)
 print("# Steps:  %s" % str(CONF.steps))
 
+if 15 in CONF.steps:    # split
+    path = CONF.mvs_dir
+    glob_path = glob.glob(path +'\sceneGeo_*.mvs')
+    for i in glob_path:
+        STEPS[16].opt.appendleft(["-i", i])
+    
 if 2 in CONF.steps:    # ComputeMatches
-    if 4 in CONF.steps:  # GlobalReconstruction
+    if 5 in CONF.steps:  # GlobalReconstruction
         # Set the geometric_model of ComputeMatches to Essential
         STEPS[2].opt.extend(["-g", "e"])
 
