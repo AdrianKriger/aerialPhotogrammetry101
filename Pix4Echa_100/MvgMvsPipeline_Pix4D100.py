@@ -3,10 +3,7 @@
 # -*- encoding: utf-8 -*-
 #
 # Created by FlachyJoe - https://github.com/FlachyJoe at https://github.com/cdcseacave/openMVS/blob/master/MvgMvsPipeline.py
-# edit: arkriger 
-
-## -- python MvgMvsPipeline_Pix4D_100.py C:\Adrian\openMVG_MVS\Pix4Dmatic_100\images_100 C:\Adrian\openMVG_MVS\Pix4Dmatic_100\result_utm
-##  https://www.openstreetmap.org/#map=18/46.64032/6.63214 -- EPSG:32632
+# edit: arkriger - https://github.com/AdrianKriger/aerialPhotogrammetry101/edit/main/Pix4Echa_100/MvgMvsPipeline_Pix4D100.py
 
 """
 This script is for an easy use of OpenMVG and OpenMVS
