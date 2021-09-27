@@ -3,9 +3,6 @@
 # -*- encoding: utf-8 -*-
 #
 # Created by FlachyJoe - https://github.com/FlachyJoe at https://github.com/cdcseacave/openMVS/blob/master/MvgMvsPipeline.py
-# edit: arkriger 
-
-## -- python MvgMvsPipeline_senseFly_37.py C:\Adrian\openMVG_MVS\senseFly_37\images C:\Adrian\openMVG_MVS\senseFly_37\result_utm
 # edit: arkriger - https://github.com/AdrianKriger/aerialPhotogrammetry101/tree/main/SenseMor_127
 
 """
