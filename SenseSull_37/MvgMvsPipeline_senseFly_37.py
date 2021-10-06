@@ -109,12 +109,12 @@ def find(afile):
 
 
 # Try to find openMVG and openMVS binaries in PATH
-OPENMVG_BIN = r"C:\Adrian\openMVG_MVS\openMVG\bin" #whereis("openMVG_main_SfMInit_ImageListing")
-OPENMVS_BIN = r"C:\Adrian\openMVG_MVS\openMVS\bin" #whereis("ReconstructMesh")
+OPENMVG_BIN = whereis("openMVG_main_SfMInit_ImageListing")
+OPENMVS_BIN = whereis("ReconstructMesh")
 
 # Try to find openMVG camera sensor database
 CAMERA_SENSOR_DB_FILE = "sensor_width_camera_database.txt"
-CAMERA_SENSOR_DB_DIRECTORY = r"C:\Adrian\openMVG_MVS\openMVG\bin\sensor_width_database" #find(CAMERA_SENSOR_DB_FILE)
+CAMERA_SENSOR_DB_DIRECTORY = find(CAMERA_SENSOR_DB_FILE)
 
 # Ask user for openMVG and openMVS directories if not found
 if not OPENMVG_BIN:
