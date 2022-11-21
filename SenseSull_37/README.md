@@ -13,7 +13,7 @@ Go Further:  *execute [sense37_Code.py](https://github.com/AdrianKriger/aerialPh
     - dtm - with Laplace interpolation via Delaunay triangulation ([startin](https://github.com/hugoledoux/startinpy/)); and
     - dsm - with home-baked quadrant-based inverse-distance weighting 
 
- [sense37.ipynb](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/SenseMor_127/sense127.ipynb) for a look.
+ [sense37.ipynb](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/SenseSull_37/sense37.ipynb) for a look.
 
 Good-to-know:
 - [MvgMvsPipeline_senseFly_37.py](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/SenseSull_37/MvgMvsPipeline_senseFly_37.py):
