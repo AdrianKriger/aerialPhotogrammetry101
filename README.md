@@ -7,3 +7,8 @@ Structure-from-Motion / Multi-view Stereo (SfM-MVS):
 - Pix4Echa_100 *(low-rise urban)*;
 - SenseMor_127 *(quarry)*;
 - SenseSull_37 *(small village)*
+
+
+Structure-from-Motion / Multi-view Stereo (SfM-MVS):
+*[MicMac](https://github.com/micmacIGN/micmac)*
+- uctDam_142 *(green open space)*;
