@@ -40,7 +40,7 @@ done
 C:\MicMac\bin\mm3d GCPConvert AppInFile gcp_Lo19_neg.txt ChSys=SysCoLo19_EPSG2048.xml@SysCoRTL.xml Out=AppRTL.xml
 
 done
-#- trim and use only the specific gcp
+#- trim and use only specific gcp with the rest as check points
 C:\MicMac\bin\mm3d TestLib SplitPts ./ AppRTL.xml GCPs=[2,4,6,9,10,15] OutGCPs=Reduced_GCPs-RTL.xml OutCPs=Reduced_CPs-RTL.xml
 
 #- capture ~ measure GCP
