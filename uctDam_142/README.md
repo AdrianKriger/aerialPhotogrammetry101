@@ -1,5 +1,4 @@
 **UCT Dam** ~ *142 nadir images*
 
-Processing pipeline for 3D reconstruction with [MicMac](https://github.com/micmacIGN/micmac)
+[mm_workFlow-uctDam.txt](https://github.com/AdrianKriger/aerialPhotogrammetry101/blob/main/uctDam_142/mm_workFlow-uctDam.txt) will produce a sparse and dense point-cloud; using the onboard GNSS as initial constraints for a relative orientation followed by ground control measurement and absolute orientation (bundle block adjustment). Products include an orthomosaic. (with [MicMac](https://github.com/micmacIGN/micmac)) 
 
- - Unmanned Aerial Vehicle (uav) with onboard GNSS and local ground control
