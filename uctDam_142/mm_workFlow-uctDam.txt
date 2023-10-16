@@ -70,7 +70,7 @@ done
 C:\MicMac\bin\mm3d Campari *.*JPG Ori-RTLfinal Ori-RTLCampari GCP=[AppRTL.xml,0.1,MeasureFinal-S2D.xml,0.5] AllFree=1
 
 #- possibly accuracy assement with check points
-C:\MicMac\bin\mm3d GCPCtrl *.*JPG Ori-RTLfinal Reduced_CPs-RTL.xml MeasureInit-S2D.xml
+#- C:\MicMac\bin\mm3d GCPCtrl *.*JPG Ori-RTLfinal Reduced_CPs-RTL.xml MeasureInit-S2D.xml
 
 
 5. 
