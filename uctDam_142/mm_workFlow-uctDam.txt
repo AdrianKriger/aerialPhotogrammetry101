@@ -56,7 +56,7 @@ done
 C:\MicMac\bin\mm3d GCPBascule *.*JPG Ori-Arbitrary Ori-RTL Reduced_GCPs-RTL.xml MeasureInit-S2D.xml
 
 done
-#- continue with gcp measurement but change the measure.xml
+#- continue with gcp measurement but change the measure.xml {wrong: keep same MeasureInit-S2D.xml}
 C:\MicMac\bin\mm3d SaisieAppuisInitQT *.*JPG Ori-RTL Reduced_GCPs-RTL.xml MeasureFinal.xml
 
 4.
