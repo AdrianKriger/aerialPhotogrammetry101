@@ -1,4 +1,4 @@
-#typical MicMac workflow
+#typical MicMac workflow. thanks to: https://gist.github.com/GastonMauroDiaz/ef8e005f3e9e4f3dcc95d12af3e32111 and 
 
 1.
 ##-- preprocessing
@@ -12,7 +12,7 @@ C:\MicMac\bin\mm3d XifGps2Xml *.*JPG RAWGNSS
 
 done
 #-- use the GpsCoordinatesFromExif.txt file to create a xml orientation folder (Ori-RAWGNSS_N), and a file (FileImagesNeighbour.xml) detailing what image sees what other image (if camera is <50m away with option DN=50)
-mm3d OriConvert "#F=N X Y Z" GpsCoordinatesFromExif.txt RAWGNSS_N ChSys=DegreeWGS84@RTLFromExif.xml MTD1=1 NameCple=FileImagesNeighbour.xml DN=$DN OkNoIm=1
+C:\MicMac\bin\mm3d OriConvert "#F=N X Y Z" GpsCoordinatesFromExif.txt RAWGNSS_N ChSys=DegreeWGS84@RTLFromExif.xml MTD1=1 NameCple=FileImagesNeighbour.xml OkNoIm=1
 
 2.
 ##- SIFT (Scale Invariant Feature Transform) with Tapioca
@@ -30,78 +30,80 @@ done
 C:\MicMac\bin\mm3d Tapas RadialBasic *.*JPG Out=Arbitrary InCal=Sample4Calib-Rel
 
 done
-#-- export sparse pointcloud with relative orientation
-C:\MicMac\bin\mm3d AperiCloud *.*JPG Ori-Arbitrary
+#-- export relative orientation [camera position and pose with tie points] sparse pointcloud (AperiCloud_Ori-Arbitary.ply)
+C:\MicMac\bin\mm3d AperiCloud *.*JPG Ori-Arbitary
 
 3.
 ##- GCP preprocessing
 done
 #- convert gcp.txt [in crs] to RTL (Local Radial Tangential) system with GCPConvert 
-C:\MicMac\bin\mm3d GCPConvert AppInFile gcp_Lo19_neg.txt ChSys=SysCoLo19_EPSG2048.xml@SysCoRTL.xml Out=AppRTL.xml
+C:\MicMac\bin\mm3d GCPConvert AppInFile gcp_utm34s.txt ChSys=SysCoUTM34s_epsg32734.xml@SysCoRTL.xml Out=AppRTL.xml
 
 done
 #- trim and use only specific gcp with the rest as check points
-C:\MicMac\bin\mm3d TestLib SplitPts ./ AppRTL.xml GCPs=[2,4,6,9,10,15] OutGCPs=Reduced_GCPs-RTL.xml OutCPs=Reduced_CPs-RTL.xml
+C:\MicMac\bin\mm3d TestLib SplitPts ./ AppRTL.xml GCPs=[2,4,5,6,7,8,9,10,15] OutGCPs=Reduced_GCPs-RTL.xml OutCPs=Reduced_CPs-RTL.xml
 
 #- Measure GCP
 done
 #- capture ~ measure GCP
-C:\MicMac\bin\mm3d SaisieAppuisInitQT *.*JPG Ori-Arbitrary Reduced_GCPs-RTL.xml MeasureInit.xml
+C:\MicMac\bin\mm3d SaisieAppuisInitQT *.*JPG Arbitrary Reduced_GCPs-RTL.xml MeasureInit.xml
 
-##- if necessary choose specific images input / measure GCP
-##- C:\MicMac\bin\mm3d SaisieAppuisInitQT xxxxxx.JPG Ori-Arbitrary Reduced_GCPs-RTL.xml MeasureInit.xml
+{
+	##- if necessary choose specific images input / measure GCP
+	##- C:\MicMac\bin\mm3d SaisieAppuisInitQT xxxxxx.JPG Arbitrary Reduced_GCPs-RTL.xml MeasureInit.xml
 
-done
-#- quick and dirty first orientation
-C:\MicMac\bin\mm3d GCPBascule *.*JPG Ori-Arbitrary Ori-RTL Reduced_GCPs-RTL.xml MeasureInit-S2D.xml
 
-done
-#- continue with gcp measurement but change the measure.xml {wrong: keep same MeasureInit-S2D.xml}
-C:\MicMac\bin\mm3d SaisieAppuisInitQT *.*JPG Ori-RTL Reduced_GCPs-RTL.xml MeasureFinal.xml
+	#- quick and dirty first orientation
+	C:\MicMac\bin\mm3d GCPBascule *.*JPG Arbitrary RTL Reduced_GCPs-RTL.xml MeasureInit-S2D.xml
+
+	#- continue with gcp measurement but change the measure.xml {wrong: keep same MeasureInit-S2D.xml}
+	#C:\MicMac\bin\mm3d SaisieAppuisInitQT *.*JPG RTL Reduced_GCPs-RTL.xml MeasureFinal.xml
+}
 
 4.
 #- Absolute Orientation and Bundle Adjustment
 done
 #-  final transformation from a purely [arbitrary] relative to an absolute orientation 
-C:\MicMac\bin\mm3d GCPBascule *.*JPG Ori-Arbitrary Ori-RTLfinal Reduced_GCPs-RTL.xml MeasureFinal-S2D.xml
+C:\MicMac\bin\mm3d GCPBascule *.*JPG Arbitrary RTLfinal Reduced_GCPs-RTL.xml MeasureInit-S2D.xml
 
 done
 #- bundle adjustment with GCP
-C:\MicMac\bin\mm3d Campari *.*JPG Ori-RTLfinal Ori-RTLCampari GCP=[AppRTL.xml,0.1,MeasureFinal-S2D.xml,0.5] AllFree=1
+C:\MicMac\bin\mm3d Campari *.*JPG RTLfinal RTLCampari GCP=[AppRTL.xml,0.1,MeasureInit-S2D.xml,0.5] AllFree=1
 
-#- possibly accuracy assement with check points
-#- C:\MicMac\bin\mm3d GCPCtrl *.*JPG Ori-RTLfinal Reduced_CPs-RTL.xml MeasureInit-S2D.xml
-
+{
+       #- possibly accuracy assement with check points
+       #- C:\MicMac\bin\mm3d GCPCtrl *.*JPG RTLfinal Reduced_CPs-RTL.xml MeasureInit-S2D.xml
+}
 
 5. 
 ##- Miscellaneous processing
 done
 #- change from RTL (Local Radial Tangential) to projected crs
-C:\MicMac\bin\C:\MicMac\bin\mm3d ChgSysCo *.*JPG Ori-RTLCampari SysCoRTL.xml@SysCoLo19_EPSG2048.xml Ground_PROJ
+C:\MicMac\bin\mm3d ChgSysCo *.*JPG RTLCampari SysCoRTL.xml@SysCoUTM34s_epsg32734.xml Ground_PROJ
 
 done
 #- print out a text file with the camera positions 
-C:\MicMac\bin\mm3d OriExport Ori-Ground_PROJ/O.*xml extOrien_lo19.txt AddF=1
+C:\MicMac\bin\mm3d OriExport Ori-Ground_PROJ/O.*xml extOrien_utm34s.txt AddF=1
 
 6.
-
+done
 #- dense image matching
-C:\MicMac\bin\mm3d PIMs QuickMac *.*JPG Ori-Ground_PROJ ZoomF=2
+C:\MicMac\bin\mm3d PIMs MicMac *.*JPG Ground_PROJ ZoomF=2
 
 7.
 #- photogrammetric products
-
+done
 #- merge the stereo depth maps and individual orthos
-C:\MicMac\bin\mm3d PIMs2Mnt QuickMac DoOrtho=1
+C:\MicMac\bin\mm3d PIMs2Mnt MicMac DoOrtho=1
 
+done
 #- orthomosaic
 C:\MicMac\bin\mm3d Tawny PIMs-ORTHO RadiomEgal=1 Out=Orthophotomosaic.tif
 
 #- dense point cloud
-C:\MicMac\bin\mm3d Nuage2Ply PIMs-TmpBasc/PIMs-Merged.xml Scale=1 Attr=PIMs-ORTHO/Orthophotomosaic.tif
-RatioAttrCarte=2 Out=GpsNuage.ply
+C:\MicMac\bin\mm3d Nuage2Ply PIMs-TmpBasc/PIMs-Merged.xml Scale=1 Attr=PIMs-ORTHO/Orthophotomosaic.tif RatioAttrCarte=2 Out=DensePnt.ply
 
-
+#-to do: assign projection with gdal.
 
 
 
