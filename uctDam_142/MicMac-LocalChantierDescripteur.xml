@@ -1,0 +1,20 @@
+
+<!-- This file is a template for defining cameras for image files that don't have metadata about (sensore size/focal length) or Foc35mmEq data -->
+	
+<Global>	
+  <ChantierDescripteur >
+
+	<!-- Define a camera model (name and sensor/film size) -->
+    <LocCamDataBase>
+        <CameraEntry>
+              <Name> FC6310 </Name>
+              <SzCaptMm>  13.2 8.8 </SzCaptMm> <!-- Size of sensore (digital) or for analog, scanned film : MidSideFiducials or "MaxFidX-MinFidX MaxFidY-MinFidY"-->
+	      <!-- <F> 9 </F> -->        
+	      <ShortName> dji4-Pro </ShortName>
+         </CameraEntry>		 
+		<!-- Add more <CameraEntry> if more cameras -->
+    </LocCamDataBase>
+
+	
+  </ChantierDescripteur>
+</Global>
