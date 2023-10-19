@@ -1,4 +1,4 @@
-#typical MicMac workflow. thanks to: https://gist.github.com/GastonMauroDiaz/ef8e005f3e9e4f3dcc95d12af3e32111 and 
+#typical MicMac workflow. thanks to: https://gist.github.com/GastonMauroDiaz/ef8e005f3e9e4f3dcc95d12af3e32111 and https://github.com/luc-girod/MicMacWorkflowsByLucGirod/blob/master/DroneNadir.sh
 
 1.
 ##-- preprocessing
