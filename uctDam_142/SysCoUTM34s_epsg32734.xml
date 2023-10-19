@@ -1,0 +1,11 @@
+<SystemeCoord>
+         <BSC>
+            <TypeCoord>  eTC_Proj4 </TypeCoord>
+            <AuxR>       1        </AuxR>
+            <AuxR>       1        </AuxR>
+            <AuxR>       1        </AuxR>
+            <AuxStr>  +proj=utm +zone=34 +south +datum=WGS84 +units=m +no_defs +type=crs   </AuxStr>
+         </BSC>
+</SystemeCoord>
+
+
