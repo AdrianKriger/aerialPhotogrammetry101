@@ -1,3 +1,3 @@
 UCT Dam ~ 142 nadir images
 
-mm_workFlow-AT.txt will produce a sparse and dense point-cloud; using the onboard GNSS as initial constraints for a relative orientation followed by the measurement of ground control and absolute orientation (bundle block adjustment). Products include an orthomosaic (with MicMac).
+mm_workFlow-AT.txt will produce a sparse and dense point-cloud; using the onboard GNSS as initial constraints for a relative orientation followed by the measurement of ground control and absolute orientation (bundle block adjustment). Products include an orthomosaic _(with [MicMac](https://github.com/micmacIGN/micmac))_.
