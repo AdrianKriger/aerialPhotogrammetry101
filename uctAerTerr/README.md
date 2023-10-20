@@ -1,3 +1,3 @@
-Aerial and Terrestial Photogrammetry ~ 92 nadir, 138 oblique and 512 terrestrial images
+House ~ 92 nadir, 138 oblique and 512 terrestrial images
 
 mm_workFlow-AT.txt will produce a sparse and dense point-cloud. Onboard GNSS as initial constraints for the relative orientation of the nadir and oblique. Followed by the introduction of ground imagery. Ground control measurement transforms arbitrary image space to an absolute orientation (with bundle block adjustment). Products include an orthomosaic _(with [MicMac](https://github.com/micmacIGN/micmac))_.
