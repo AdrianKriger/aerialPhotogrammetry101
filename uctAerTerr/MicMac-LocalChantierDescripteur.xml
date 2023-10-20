@@ -1,0 +1,48 @@
+
+<!-- This file is a template for defining cameras for image files that don't have metadata about (sensore size/focal length) or Foc35mmEq data -->
+	
+<Global>	
+  <ChantierDescripteur >
+
+	<!-- Define a camera model (name and sensor/film size) -->
+    <LocCamDataBase>
+        <CameraEntry>
+              <Name> L1D-20c </Name>
+              <SzCaptMm>  13.2 8.8 </SzCaptMm> <!-- Size of sensore (digital) or for analog, scanned film : MidSideFiducials or "MaxFidX-MinFidX MaxFidY-MinFidY"-->      
+	      <ShortName> Hasselblad </ShortName>
+         </CameraEntry>	
+        <CameraEntry>
+              <Name> ILCE-7RM3 </Name>
+              <SzCaptMm> 35.9 24.0 </SzCaptMm> 
+	      <ShortName> Sony A7R III </ShortName>
+         </CameraEntry>		 
+		<!-- Add more <CameraEntry> if more cameras -->	
+    </LocCamDataBase>
+	
+	<KeyedNamesAssociations>
+            <Calcs>
+                 <Arrite>  1 1 </Arrite>
+                 <Direct>
+                       <PatternTransform> DJI*.*JPG  </PatternTransform> <!-- Regular expressions of the group of images with the following camera model -->
+                       <CalcName> L1D-20c </CalcName> <!-- Name of the camera for these images -->
+                 </Direct>
+             </Calcs>
+			<!-- Add more <Calcs> if more cameras -->
+             <Key>   NKS-Assoc-STD-CAM </Key>
+    </KeyedNamesAssociations>
+	
+	    <KeyedNamesAssociations>
+            <Calcs>
+                 <Arrite>  1 1 </Arrite>
+                 <Direct>
+                       <PatternTransform> A*.*JPG </PatternTransform> <!-- Regular expressions of the group of images with the following camera model -->
+                       <CalcName> ILCE-7RM3 </CalcName>	<!-- Name of the camera for these images -->
+                 </Direct>
+             </Calcs>
+			<!-- Add more <Calcs> for all different focals -->
+             <Key>   NKS-Assoc-STD-FOC  </Key>
+    </KeyedNamesAssociations>
+	
+	
+  </ChantierDescripteur>
+</Global>
