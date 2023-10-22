@@ -1,4 +1,4 @@
-**House** ~ 92 nadir, 138 oblique and 512 terrestrial images
+**House** ~ *92 nadir, 138 oblique and 512 terrestrial images*
 
 **Integrating Aerial and Terrestrial Photogrammetry**
 
